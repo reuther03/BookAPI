@@ -17,7 +17,7 @@ var connectionString = builder.Configuration["ConnectionStrings:BookDb"];
 services.AddDbContext<BookDbContext>(c => c.UseSqlite(connectionString));
 
 // DI
-// services.AddScoped<ITestService, TestService>();
+services.AddScoped<ICountryRepository, CountryRepository>();
 
 #endregion
 
@@ -29,7 +29,11 @@ using var scope = app.Services.CreateScope();
 var context = scope.ServiceProvider.GetRequiredService<BookDbContext>();
 context.Database.EnsureCreated();
 context.Database.Migrate();
-// context.SeedDataContext();
+
+if (!context.Books.Any() && !context.Authors.Any() && !context.Reviews.Any())
+{
+    context.SeedDataContext();
+}
 
 app.UseSwagger();
 app.UseSwaggerUI();
