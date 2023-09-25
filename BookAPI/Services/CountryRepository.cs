@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
+
 namespace BookAPI;
 
 public class CountryRepository : ICountryRepository
@@ -18,12 +20,9 @@ public class CountryRepository : ICountryRepository
 
     public Country GetAuthorCountry(int authorId)
     {
-        // return _context.Countries
-        //     .Where(c => c.Authors.Any(a => a.Id == authorId))
-        //     .FirstOrDefault();
-        return _context.Authors
-            .FirstOrDefault(a => a.Id == authorId)
-            .Country;
+        return _context.Countries
+            .Where(c => c.Authors.Any(a => a.Id == authorId))
+            .FirstOrDefault();
     }
 
     public ICollection<Country> GetCountries()
@@ -42,8 +41,10 @@ public class CountryRepository : ICountryRepository
     public ICollection<Author> GetCountryAuthors(int id)
     {
         return _context.Countries
+            .Include(c => c.Authors)
             .FirstOrDefault(c => c.Id == id)
             .Authors;
 
     }
 }
+

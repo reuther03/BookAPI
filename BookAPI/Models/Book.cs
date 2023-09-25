@@ -20,5 +20,4 @@ public class Book
     public virtual ICollection<Review> Reviews { get; set; }
     public virtual ICollection<BookAuthor> BookAuthors { get; set; }
     public virtual ICollection<BookCategory> BookCategories { get; set; }
-
 }

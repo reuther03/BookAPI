@@ -18,6 +18,7 @@ services.AddDbContext<BookDbContext>(c => c.UseSqlite(connectionString));
 
 // DI
 services.AddScoped<ICountryRepository, CountryRepository>();
+services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 #endregion
 
@@ -30,7 +31,7 @@ var context = scope.ServiceProvider.GetRequiredService<BookDbContext>();
 context.Database.EnsureCreated();
 context.Database.Migrate();
 
-if (!context.Books.Any() && !context.Authors.Any() && !context.Reviews.Any())
+if (!context.Books.Any() && !context.Authors.Any() && !context.Reviews.Any() && !context.Countries.Any())
 {
     context.SeedDataContext();
 }

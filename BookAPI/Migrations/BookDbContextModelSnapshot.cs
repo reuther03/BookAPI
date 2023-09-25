@@ -23,7 +23,7 @@ namespace BookAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CountryId")
+                    b.Property<int?>("CountryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("FirstName")
@@ -135,7 +135,7 @@ namespace BookAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BookId")
+                    b.Property<int?>("BookId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Headline")
@@ -151,7 +151,7 @@ namespace BookAPI.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ReviewerId")
+                    b.Property<int?>("ReviewerId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -188,9 +188,7 @@ namespace BookAPI.Migrations
                 {
                     b.HasOne("BookAPI.Country", "Country")
                         .WithMany("Authors")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CountryId");
 
                     b.Navigation("Country");
                 });
@@ -237,15 +235,11 @@ namespace BookAPI.Migrations
                 {
                     b.HasOne("BookAPI.Book", "Book")
                         .WithMany("Reviews")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BookId");
 
                     b.HasOne("BookAPI.Reviewer", "Reviewer")
                         .WithMany("Reviews")
-                        .HasForeignKey("ReviewerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ReviewerId");
 
                     b.Navigation("Book");
 

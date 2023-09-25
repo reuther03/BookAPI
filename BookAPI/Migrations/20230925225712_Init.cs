@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BookAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -98,7 +98,7 @@ namespace BookAPI.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     FirstName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     LastName = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    CountryId = table.Column<int>(type: "INTEGER", nullable: false)
+                    CountryId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -107,8 +107,7 @@ namespace BookAPI.Migrations
                         name: "FK_Authors_Countries_CountryId",
                         column: x => x.CountryId,
                         principalTable: "Countries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -120,8 +119,8 @@ namespace BookAPI.Migrations
                     Headline = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     ReviewText = table.Column<string>(type: "TEXT", maxLength: 2000, nullable: false),
                     Rating = table.Column<int>(type: "INTEGER", nullable: false),
-                    ReviewerId = table.Column<int>(type: "INTEGER", nullable: false),
-                    BookId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ReviewerId = table.Column<int>(type: "INTEGER", nullable: true),
+                    BookId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -130,14 +129,12 @@ namespace BookAPI.Migrations
                         name: "FK_Reviews_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Reviews_Reviewers_ReviewerId",
                         column: x => x.ReviewerId,
                         principalTable: "Reviewers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
