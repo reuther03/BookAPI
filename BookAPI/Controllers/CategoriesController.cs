@@ -49,7 +49,7 @@ public class CategoriesController : ControllerBase
         return Ok(categoryDto);
     }
 
-    [HttpGet("Book/{bookId:int}")]
+    [HttpGet("Books/{bookId:int}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(IEnumerable<CategoryDto>), StatusCodes.Status200OK)]
     public IActionResult GetBookCategories([FromRoute] int bookId)

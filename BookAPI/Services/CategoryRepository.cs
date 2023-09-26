@@ -17,14 +17,20 @@ public class CategoryRepository : ICategoryRepository
 
     public ICollection<Category> GetBookCategories(int bookId)
     {
-        return _context.Categories
-            .Where(c => c.BookCategories.Any(bc => bc.BookId == bookId))
+        return _context.BookCategories
+            .Where(bc => bc.BookId == bookId)
+            .Select(bc => bc.Category)
             .ToList();
+
+        // return _context.Categories
+        //     .Where(c => c.BookCategories.Any(bc => bc.BookId == bookId))
+        //     .ToList();
     }
 
     public ICollection<Category> GetCategories()
     {
         return _context.Categories
+            .OrderBy(c => c.Name)
             .ToList();
     }
 
