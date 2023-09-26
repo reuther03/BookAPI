@@ -1,3 +1,5 @@
 bin/
 obj/
 .vscode/
+BookDb.db-shm
+BookDb.db-wal
